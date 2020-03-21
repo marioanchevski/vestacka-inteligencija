@@ -1,7 +1,5 @@
 from utils import Problem
 from uninformed_search import *
-
-
 def update_obsticle1(position):
     x=position[0]
     y=position[1]
@@ -12,7 +10,6 @@ def update_obsticle1(position):
         x = x - nasoka
 
     x_new =  x - nasoka
-
     new_position = x_new,y,nasoka
     return new_position
 
@@ -55,7 +52,7 @@ def is_ok(x,y,p1,p2,p3):
         return False
     if (x==p2[0] and y==p2[1])  or (x==p2[0]-p2[2] and y==p2[1]) or (x==p2[0] and y==p2[1]-p2[2]) or (x==p2[0]-p2[2] and y==p2[1]-p2[2]):
         return False
-    if (x==p3[0] and y==p3[1]) or (x == p3[0] and y==p3[1]+p3[2]):
+    if (x==p3[0] and y==p3[1]) or (x == p3[0] and y==p3[1]-p3[2]):
         return False
 
     return True
@@ -115,16 +112,17 @@ class Prepreki(Problem):
         return position == self.goal
 
 
-if __name__=="__main__":
-    choveche_redica = int(input())
-    choveche_kolona = int(input())
-    kukja_redica = int(input())
-    kukja_kolona = int(input())
+if __name__ == '__main__':
+    #Vcituvanje na vleznite argumenti za test primerite
+    man_x = int(input())
+    man_y = int(input())
+    house_x = int(input())
+    house_y = int(input())
     obsticles=((3,8,-1),(3,3,1),(8,2,-1))
 
-    pocetna=(choveche_redica,choveche_kolona,obsticles[0],obsticles[1],obsticles[2])
-    goal=[kukja_redica,kukja_kolona]
+    pocetna=(man_x,man_y,obsticles[0],obsticles[1],obsticles[2])
+    goal=[house_x,house_y]
 
     covece1 = Prepreki(pocetna,goal)
-    answer = breadth_first_graph_search(covece1)
-    print(answer.solution())
+    result = breadth_first_graph_search(covece1)
+    print(result.solution())
