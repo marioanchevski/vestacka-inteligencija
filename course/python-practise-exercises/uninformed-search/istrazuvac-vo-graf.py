@@ -3,29 +3,41 @@ from uninformed_search import *
 
 def move_right(pos,vrski):
     if (pos,pos+1) in vrski:
+        vrski.remove((pos, pos+1))
+        vrski.remove((pos+1, pos))
         pos=pos+1
-    return pos
+    return pos,vrski
 def move_left(pos,vrski):
     if (pos,pos-1) in vrski:
+        vrski.remove((pos, pos-1))
+        vrski.remove((pos-1, pos))
         pos=pos-1
-    return pos
+    return pos,vrski
 def move_up(pos,vrski):
     if (pos,pos-4) in vrski:
+        vrski.remove((pos,pos-4))
+        vrski.remove((pos-4, pos))
         pos=pos-4
-    return pos
+    return pos,vrski
 def move_down(pos,vrski):
     if (pos,pos+4) in vrski:
+        vrski.remove((pos, pos+4))
+        vrski.remove((pos+4,pos))
         pos=pos+4
-    return pos
+    return pos,vrski
 
 def move_down_right(pos,vrski):
     if(pos,pos+5) in vrski:
+        vrski.remove((pos,pos+5))
+        vrski.remove((pos+5, pos))
         pos=pos+5
-    return pos
+    return pos,vrski
 def move_up_left(pos,vrski):
     if(pos,pos-5) in vrski:
+        vrski.remove((pos, pos-5))
+        vrski.remove((pos-5,pos))
         pos=pos-5
-    return pos
+    return pos,vrski
 
 class Istrazuvac(Problem):
     def __init__(self,initial,goal=None):
@@ -45,54 +57,35 @@ class Istrazuvac(Problem):
         dzvezdi = state[1]
         vrski=self.vrski
 
+        new_state=move_right(cur_pos,vrski)
+        vrski=new_state[1]
+        if new_state[0] != cur_pos:
+            successors["Desno"]=(new_state[0], tuple([s for s in dzvezdi if s != new_state[0]]))
 
-        new_pos=move_right(cur_pos,vrski)
-        if new_pos != cur_pos:
-            vrski.remove((new_pos, cur_pos))
-            vrski.remove((cur_pos, new_pos))
-            cur_pos=new_pos
-            successors["Desno"]=(new_pos, tuple([s for s in dzvezdi if s != new_pos ]))
-            #print(" successors[Desno]= "+str((new_pos, tuple([s for s in dzvezdi if s != new_pos ]))))
+        new_state=move_left(cur_pos,vrski)
+        vrski = new_state[1]
+        if new_state[0] != cur_pos:
+            successors["Levo"] = (new_state[0], tuple([s for s in dzvezdi if s != new_state[0]]))
 
+        new_state = move_up(cur_pos, vrski)
+        vrski = new_state[1]
+        if new_state[0] != cur_pos:
+            successors["Gore"] = (new_state[0], tuple([s for s in dzvezdi if s != new_state[0]]))
 
-        new_pos=move_left(cur_pos,vrski)
-        if new_pos != cur_pos:
-            vrski.remove((new_pos, cur_pos))
-            vrski.remove((cur_pos, new_pos))
-            cur_pos = new_pos
-            successors["Levo"] = (new_pos, tuple([s for s in dzvezdi if s != new_pos]))
-            #print(" successors[levo]= "+str((new_pos, tuple([s for s in dzvezdi if s != new_pos ]))))
+        new_state = move_down(cur_pos, vrski)
+        vrski = new_state[1]
+        if new_state[0] != cur_pos:
+            successors["Dolu"] = (new_state[0], tuple([s for s in dzvezdi if s != new_state[0]]))
 
-        new_pos = move_up(cur_pos, vrski)
-        if new_pos != cur_pos:
-            vrski.remove((new_pos, cur_pos))
-            vrski.remove((cur_pos, new_pos))
-            cur_pos = new_pos
-            #print(" successors[gore]= " + str((new_pos, tuple([s for s in dzvezdi if s != new_pos ]))))
+        new_state = move_up_left(cur_pos, vrski)
+        vrski = new_state[1]
+        if new_state[0] != cur_pos:
+            successors["GoreLevo"] = (new_state[0], tuple([s for s in dzvezdi if s != new_state[0]]))
 
-
-        new_pos = move_down(cur_pos, vrski)
-        if new_pos != cur_pos:
-            vrski.remove((new_pos, cur_pos))
-            vrski.remove((cur_pos, new_pos))
-            cur_pos = new_pos
-            #print(" successors[Dolu]= "+str((new_pos, tuple([s for s in dzvezdi if s != new_pos ]))))
-
-
-        new_pos = move_up_left(cur_pos, vrski)
-        if new_pos != cur_pos:
-            vrski.remove((new_pos, cur_pos))
-            vrski.remove((cur_pos, new_pos))
-            cur_pos = new_pos
-            #print(" successors[gorelevo]= "+str((new_pos, tuple([s for s in dzvezdi if s != new_pos ]))))
-
-
-        new_pos = move_down_right(cur_pos, vrski)
-        if new_pos != cur_pos:
-            vrski.remove((new_pos, cur_pos))
-            vrski.remove((cur_pos, new_pos))
-            cur_pos=new_pos
-            #print(" successors[doluDesno]= "+str((new_pos, tuple([s for s in dzvezdi if s != new_pos ]))))
+        new_state= move_down_right(cur_pos, vrski)
+        vrski = new_state[1]
+        if new_state[0] != cur_pos:
+            successors["DoluDesno"] = (new_state[0], tuple([s for s in dzvezdi if s != new_state[0]]))
 
         return successors
 
@@ -103,8 +96,7 @@ class Istrazuvac(Problem):
         return self.successor(state)[action]
 
     def goal_test(self, state):
-        #print(self.goal)
-        return len(state[-1]) == 0
+        return len(state[1]) == 0
 
 if __name__=="__main__":
     #player_position = int(input())
