@@ -38,46 +38,47 @@ class Molecule(Problem):
         h2_y=state[5]
         obsticles=self.obsitcles
 
-        #H1
-        new_x=move_right(h1_x,h1_y,o_x,o_y,h2_x,h2_y,obsticles)
-        if new_x != h1_x:
-            successors['DesnoH1']=(new_x,h1_y,o_x,o_y,h2_x,h2_y)
-        new_x=move_left(h1_x,h1_y,o_x,o_y,h2_x,h2_y,obsticles)
-        if new_x != h1_x:
-            successors['LevoH1']=(new_x,h1_y,o_x,o_y,h2_x,h2_y)
+        # H1
         new_y = move_up(h1_x, h1_y, o_x, o_y, h2_x, h2_y, obsticles)
         if new_y != h1_y:
             successors['GoreH1'] = (h1_x, new_y, o_x, o_y, h2_x, h2_y)
         new_y = move_down(h1_x, h1_y, o_x, o_y, h2_x, h2_y, obsticles)
         if new_y != h1_y:
             successors['DoluH1'] = (h1_x, new_y, o_x, o_y, h2_x, h2_y)
+        new_x = move_left(h1_x, h1_y, o_x, o_y, h2_x, h2_y, obsticles)
+        if new_x != h1_x:
+            successors['LevoH1'] = (new_x, h1_y, o_x, o_y, h2_x, h2_y)
+        new_x = move_right(h1_x, h1_y, o_x, o_y, h2_x, h2_y, obsticles)
+        if new_x != h1_x:
+            successors['DesnoH1'] = (new_x, h1_y, o_x, o_y, h2_x, h2_y)
 
-        #O
-        new_x=move_right(o_x,o_y,h1_x,h1_y,h2_x,h2_y,obsticles)
-        if new_x != o_x:
-            successors['DesnoO'] = (h1_x, h1_y, new_x, o_y, h2_x, h2_y)
-        new_x=move_left(o_x,o_y,h1_x,h1_y,h2_x,h2_y,obsticles)
-        if new_x != o_x:
-            successors['LevoO'] = (h1_x, h1_y, new_x, o_y, h2_x, h2_y)
-        new_y = move_up(o_x,o_y,h1_x,h1_y,h2_x,h2_y,obsticles)
+        # O
+        new_y = move_up(o_x, o_y, h1_x, h1_y, h2_x, h2_y, obsticles)
         if new_y != o_y:
             successors['GoreO'] = (h1_x, h1_y, o_x, new_y, h2_x, h2_y)
-        new_y = move_down(o_x,o_y,h1_x,h1_y,h2_x,h2_y,obsticles)
+        new_y = move_down(o_x, o_y, h1_x, h1_y, h2_x, h2_y, obsticles)
         if new_y != o_y:
             successors['DoluO'] = (h1_x, h1_y, o_x, new_y, h2_x, h2_y)
-        #H2
-        new_x=move_right(h2_x,h2_y,h1_x,h1_y,o_x,o_y,obsticles)
-        if new_x != h2_x:
-            successors['DesnoH2'] = (h1_x, h1_y, o_x, o_y, new_x, h2_y)
-        new_x=move_left(h2_x,h2_y,h1_x,h1_y,o_x,o_y,obsticles)
-        if new_x != h2_x:
-            successors['LevoH2'] = (h1_x, h1_y, o_x, o_y, new_x, h2_y)
+        new_x = move_left(o_x, o_y, h1_x, h1_y, h2_x, h2_y, obsticles)
+        if new_x != o_x:
+            successors['LevoO'] = (h1_x, h1_y, new_x, o_y, h2_x, h2_y)
+        new_x = move_right(o_x, o_y, h1_x, h1_y, h2_x, h2_y, obsticles)
+        if new_x != o_x:
+            successors['DesnoO'] = (h1_x, h1_y, new_x, o_y, h2_x, h2_y)
+
+        # H2
         new_y = move_up(h2_x, h2_y, h1_x, h1_y, o_x, o_y, obsticles)
         if new_y != h2_y:
             successors['GoreH2'] = (h1_x, h1_y, o_x, o_y, h2_x, new_y)
         new_y = move_down(h2_x, h2_y, h1_x, h1_y, o_x, o_y, obsticles)
         if new_y != h2_y:
             successors['DoluH2'] = (h1_x, h1_y, o_x, o_y, h2_x, new_y)
+        new_x = move_left(h2_x, h2_y, h1_x, h1_y, o_x, o_y, obsticles)
+        if new_x != h2_x:
+            successors['LevoH2'] = (h1_x, h1_y, o_x, o_y, new_x, h2_y)
+        new_x = move_right(h2_x, h2_y, h1_x, h1_y, o_x, o_y, obsticles)
+        if new_x != h2_x:
+            successors['DesnoH2'] = (h1_x, h1_y, o_x, o_y, new_x, h2_y)
 
         return successors
 
