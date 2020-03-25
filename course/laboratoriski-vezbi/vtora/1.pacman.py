@@ -17,7 +17,6 @@ class Pacman(Problem):
         pravec=state[2]
         tocki=state[3]
 
-
         #prodolzhi pravo
         if pravec=='istok' and ((x+1,y)  not in self.precki and x+1<=9):
             successors['ProdolzhiPravo']=(x+1,y,'istok',tuple([t for t in tocki if t != (x+1,y)]))
@@ -29,13 +28,13 @@ class Pacman(Problem):
             successors['ProdolzhiPravo'] = (x, y-1, 'jug', tuple([t for t in tocki if t != (x, y-1)]))
 
         #prodolzhi nazad
-        if pravec=='istok' and ((x+1,y) in self.precki or x+1==10):
+        if pravec=='istok' and ((x-1,y) not in self.precki and x-1>=0):
             successors['ProdolzhiNazad']=(x-1,y,'zapad',tuple([t for t in tocki if t != (x - 1, y)]))
-        elif pravec=='zapad' and ((x-1,y) in self.precki or x-1==-1):
+        elif pravec=='zapad' and ((x+1,y) not in self.precki and x+1<=9):
             successors['ProdolzhiNazad'] = (x + 1, y, 'istok', tuple([t for t in tocki if t != (x + 1, y)]))
-        elif pravec=='sever' and ((x,y+1) in self.precki or y+1==10):
+        elif pravec=='sever' and ((x,y-1) not in self.precki and y-1>=0):
             successors['ProdolzhiNazad'] = (x, y-1, 'jug', tuple([t for t in tocki if t != (x, y-1)]))
-        elif pravec=='jug' and ((x,y-1) in self.precki or y-1==-1):
+        elif pravec=='jug' and ((x,y+1) not in self.precki and y+1<=9):
             successors['ProdolzhiNazad'] = (x, y + 1, 'sever', tuple([t for t in tocki if t != (x, y + 1)]))
 
         #svrti levo
