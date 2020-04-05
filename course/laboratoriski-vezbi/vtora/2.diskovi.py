@@ -1,30 +1,6 @@
 from utils import Problem
 from uninformed_search import *
 
-def d1(position,lista):
-    if position+1<len(lista) and lista[position+1]=="#":
-        lista[position+1]=lista[position]
-        lista[position]="#"
-    return tuple(lista)
-def d2(position,lista):
-    if position+2<len(lista) and lista[position+2]=="#" and lista[position+1]!="#":
-        lista[position + 2] = lista[position]
-        lista[position] = "#"
-    return tuple(lista)
-
-def l1(position,lista):
-    if position-1>=0 and lista[position-1]=="#":
-        lista[position-1]=lista[position]
-        lista[position]="#"
-    return tuple(lista)
-
-def l2(position,lista):
-    if position+2>=0 and lista[position-2]=="#" and lista[position-1]!="#":
-        lista[position - 2] = lista[position]
-        lista[position] = "#"
-    return tuple(lista)
-
-
 class Diskovi(Problem):
     def __init__(self,initial,goal):
         super().__init__(initial,goal)
@@ -34,24 +10,28 @@ class Diskovi(Problem):
         lista = list(state)
 
         for i in range(len(lista)):
+            lista = list(state)
             if lista[i]!="#":
                 if i+1<len(lista) and lista[i+1]=="#":
-                    st = "D1: Disk" + str(lista[i])
+                    st = "D1: Disk " + str(lista[i])
                     lista[i+1]=lista[i]
                     lista[i]="#"
                     successors[st]=tuple(lista)
-                elif i+2<len(lista) and lista[i+2]=="#" and lista[i+1]!="#":
-                    st = "D2: Disk" + str(lista[i])
-                    lista[i + 1] = lista[i]
+                    lista=list(state)
+                if i+2<len(lista) and lista[i+2]=="#" and lista[i+1]!="#":
+                    st = "D2: Disk " + str(lista[i])
+                    lista[i + 2] = lista[i]
                     lista[i] = "#"
                     successors[st] = tuple(lista)
-                elif i-1>=0 and lista[i-1]=="#":
-                    st = "L1: Disk" + str(lista[i])
+                    lista = list(state)
+                if i-1>=0 and lista[i-1]=="#":
+                    st = "L1: Disk " + str(lista[i])
                     lista[i - 1] = lista[i]
                     lista[i] = "#"
                     successors[st] = tuple(lista)
-                elif i-2>=0 and lista[i-2]=="#" and lista[i-1]!="#":
-                    st = "L2: Disk"+str(lista[i])
+                    lista = list(state)
+                if i-2>=0 and lista[i-2]=="#" and lista[i-1]!="#":
+                    st = "L2: Disk "+str(lista[i])
                     lista[i-2]=lista[i]
                     lista[i]="#"
                     successors[st]=tuple(lista)
