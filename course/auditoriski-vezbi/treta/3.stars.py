@@ -1,5 +1,5 @@
-from utils import Problem
-from uninformed_search import *
+from searching_framework.utils import Problem
+from searching_framework.uninformed_search import *
 
 def k1(x, y, b_x, b_y):  # up up left
     if 0 < x - 1 < 8 and 0 < y + 2 < 8 and [x - 1, y + 2] != [b_x, b_y]:

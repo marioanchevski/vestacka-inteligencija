@@ -1,5 +1,5 @@
-from utils import Problem
-from informed_search import *
+from searching_framework.utils import Problem
+from searching_framework.informed_search import *
 
 def update_obsticle(obsticle):
     x, y, direction = obsticle

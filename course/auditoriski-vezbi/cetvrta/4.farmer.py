@@ -1,5 +1,5 @@
-from utils  import Problem
-from informed_search import astar_search
+from searching_framework.utils  import Problem
+from searching_framework.informed_search import astar_search
 
 def is_valid(state):
     farmer, volk, jare, zelka = state
