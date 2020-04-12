@@ -1,28 +1,6 @@
 from searching_framework.utils import Problem
 from searching_framework.informed_search import *
 
-def d1(position,list):
-    if position+1<len(list) and list[position+1]=="#":
-        list[position + 1] = list[position]
-        list[position] = "#"
-    return tuple(list)
-
-def d2(position,list):
-    if position+2<len(list) and list[position+1]!="#" and list[position+2]=='#':
-        list[position + 2] = list[position]
-        list[position] = "#"
-    return tuple(list)
-def l1(position,list):
-    if  position-1>=0 and list[position-1] =="#":
-        list[position - 1] = list[position]
-        list[position] = "#"
-    return tuple(list)
-def l2(position,list):
-    if  position-2>=0 and list[position-1]!="#" and list[position-2]=='#':
-        list[position - 2] = list[position]
-        list[position] = "#"
-    return tuple(list)
-
 
 class Diskovi(Problem):
     def __init__(self,initial,goal):
