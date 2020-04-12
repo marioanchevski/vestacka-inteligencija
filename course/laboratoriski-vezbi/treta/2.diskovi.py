@@ -1,7 +1,6 @@
 from searching_framework.utils import Problem
 from searching_framework.informed_search import *
 
-
 class Diskovi(Problem):
     def __init__(self,initial,goal):
         super().__init__(initial,goal)
@@ -12,29 +11,29 @@ class Diskovi(Problem):
 
         for i in range(len(lista)):
             lista = list(state)
-            if lista[i]!="#":
-                if i+1<len(lista) and lista[i+1]=="#":
+            if lista[i]!=0:
+                if i+1<len(lista) and lista[i+1]==0:
                     st = "D1: Disk " + str(lista[i])
                     lista[i+1]=lista[i]
-                    lista[i]="#"
+                    lista[i]=0
                     successors[st]=tuple(lista)
                     lista=list(state)
-                if i+2<len(lista) and lista[i+2]=="#" and lista[i+1]!="#":
+                if i+2<len(lista) and lista[i+2]==0 and lista[i+1]!=0:
                     st = "D2: Disk " + str(lista[i])
                     lista[i + 2] = lista[i]
-                    lista[i] = "#"
+                    lista[i] = 0
                     successors[st] = tuple(lista)
                     lista = list(state)
-                if i-1>=0 and lista[i-1]=="#":
+                if i-1>=0 and lista[i-1]==0:
                     st = "L1: Disk " + str(lista[i])
                     lista[i - 1] = lista[i]
-                    lista[i] = "#"
+                    lista[i] = 0
                     successors[st] = tuple(lista)
                     lista = list(state)
-                if i-2>=0 and lista[i-2]=="#" and lista[i-1]!="#":
+                if i-2>=0 and lista[i-2]==0 and lista[i-1]!=0:
                     st = "L2: Disk "+str(lista[i])
                     lista[i-2]=lista[i]
-                    lista[i]="#"
+                    lista[i]=0
                     successors[st]=tuple(lista)
         return successors
 
@@ -50,10 +49,9 @@ class Diskovi(Problem):
     def h(self,node):
         counter = 0
         for x, y in zip(node.state, self.goal):
-            if x!="#":
+            if x!=0:
                 if x != y:
                     counter += 1
-        print(counter)
         return counter
 
 
@@ -64,7 +62,7 @@ if __name__ == '__main__':
     for i in range(n):
         lista.append(i+1)
     for i in range(l-n):
-        lista.append("#")
+        lista.append(0)
 
     cel = lista[:]
     cel.reverse()
