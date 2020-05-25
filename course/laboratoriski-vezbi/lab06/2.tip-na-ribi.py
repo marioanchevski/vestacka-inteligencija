@@ -1,4 +1,3 @@
-from sklearn.preprocessing import OrdinalEncoder
 from sklearn.ensemble import RandomForestClassifier
 
 if __name__ == '__main__':
@@ -166,41 +165,31 @@ if __name__ == '__main__':
     br_drva = int(input())
     kriterium = input()
     novi_podatoci = [x for x in input().split(' ')]
-    novi_podatoci = novi_podatoci[0:kolona-1] + novi_podatoci[kolona:]
+    novi_podatoci = novi_podatoci[0:kolona] + novi_podatoci[kolona+1:]
 
+    dataset_2 = list()
+    for x in dataset:
+        data = [x[i] for i in range(len(x)) if i != kolona]
+        dataset_2.append(data)
 
-    encoder = OrdinalEncoder()
-    encoder.fit([row[:-1] for row in dataset])
-
-    train_set = dataset[:int(len(dataset) * 0.85)]
+    train_set = dataset_2[:int(len(dataset_2) * 0.85)]
     train_x = [x[:-1] for x in train_set]
-    train_x = encoder.transform(train_x)
     train_y = [x[-1] for x in train_set]
 
-    test_set = dataset[int(len(dataset) * 0.85):]
+    test_set = dataset_2[int(len(dataset_2) * 0.85):]
     test_x = [x[:-1] for x in test_set]
-    test_x = encoder.transform(test_x)
     test_y = [x[-1] for x in test_set]
 
-    train_x_2 = list()
-    for x in train_x:
-        data = [x[i] for i in range(len(x)) if i != kolona]
-        train_x_2.append(data)
-
-    test_x_2 = list()
-    for x in test_x:
-        data = [x[i] for i in range(len(x)) if i != kolona]
-        test_x_2.append(data)
 
     classifier = RandomForestClassifier(n_estimators=br_drva, criterion=kriterium, random_state=0)
-    classifier.fit(train_x_2, train_y)
+    classifier.fit(train_x, train_y)
 
     acc = 0
-    for x,y in zip(test_x_2,test_y):
+    for x,y in zip(test_x,test_y):
         y_predicted = classifier.predict([x])[0]
         if y_predicted == y:
             acc += 1
 
-    print(f'Accuracy: {acc/len(test_x_2)}')
+    print(f'Accuracy: {acc/len(test_x)}')
     print(classifier.predict([novi_podatoci])[0])
     print(classifier.predict_proba([novi_podatoci])[0])
