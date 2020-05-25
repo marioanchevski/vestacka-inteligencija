@@ -1,6 +1,6 @@
 from sys import maxsize as infinity
 
-from utils import Node, PriorityQueue
+from searching_framework.utils import Node, PriorityQueue
 
 """
 Информирано пребарување во рамки на граф

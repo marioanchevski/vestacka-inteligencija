@@ -1,6 +1,6 @@
 import sys
 
-from utils import Node, FIFOQueue, Stack, PriorityQueue
+from searching_framework.utils import Node, FIFOQueue, Stack, PriorityQueue
 
 
 """
