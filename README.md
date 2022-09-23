@@ -1,3 +1,3 @@
-#Vestacka inteligencija 2020
+# Vestacka inteligencija 2020
 
-##Laboratoriski,auditoriski i drugi vezbi
+## Laboratoriski,auditoriski i drugi vezbi
